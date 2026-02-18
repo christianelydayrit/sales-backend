@@ -1,0 +1,29 @@
+export const salesMonthlySchema = {
+    querystring:{
+        type: 'object',
+        required: ['month', 'year'],
+        additionalProperties: false,
+        properties:{
+            'month': {type: 'integer', minimum: 1, maximum: 12},
+            'year': {type: 'integer', minimum: 2025, maximum: 2026}
+        }
+    },
+    response: {
+        200:{
+            type: 'array',
+            items:{
+                type: 'object',
+                required: ['id', 'customer_name', 'product_name', 'quantity', 'total_amount', 'sale_date'],
+                additionalProperties: false,
+                properties:{
+                    'id': {type: 'integer'},
+                    'customer_name': {type: 'string'},
+                    'product_name': {type: 'string'},
+                    'quantity': {type: 'integer'},
+                    'total_amount': {type: 'string'},
+                    'sale_date': {type: 'string'}
+                }
+            }
+        }
+    }
+}
