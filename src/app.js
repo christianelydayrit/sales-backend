@@ -8,10 +8,19 @@ export function buildApp(opts = {}){
         ...opts
     });
 
-    fastify.get('/health', async () => ({ status: 'ok' }))
+    fastify.get('/health', async () => ({ status: 'ok' }));
     
+    fastify.get('/ready', async (req, rep) => {
+        try {
+          await fastify.pg.query('SELECT 1')
+          return { status: 'ready' }
+        } catch {
+          return rep.code(503).send({ status: 'not_ready' })
+        }
+      });
+
     fastify.register(dbConnection);
-    fastify.register(salesController, {prefix: '/sales'})
+    fastify.register(salesController, {prefix: '/sales'});
 
     return fastify;
 }
