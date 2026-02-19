@@ -1,6 +1,6 @@
 import { salesMonthlySchema } from './sales.schema.js'
-import getMonthlySales from './sales.contoller.js';
+import getMonthlySales from './sales.controller.js';
 
-export default function salesController(fastify){
-    fastify.get('/monthly', {schema: salesMonthlySchema}, getMonthlySales)
+export default async function salesController(fastify){
+    fastify.get('/', {schema: salesMonthlySchema}, getMonthlySales)
 };
