@@ -23,7 +23,7 @@ export const salesMonthlySchema = {
                     'product_name': {type: 'string'},
                     'quantity': {type: 'integer'},
                     'total_amount': {type: 'string'},
-                    'sale_date': {type: 'string', format: "date"}
+                    'sale_date': {type: 'string'}
                 }
             }
         },

@@ -22,7 +22,7 @@ async function errorHandlerPlugin(fastify){
             })
         }
 
-        if(err.validation){
+        if(err.code === "FST_ERR_VALIDATION"){
             return rep.code(400).send({
                 statusCode: 400,
                 error: 'Bad Request',
@@ -40,7 +40,15 @@ async function errorHandlerPlugin(fastify){
               error: "Bad Request",
               message: "Invalid JSON body",
             });
-          }
+        }
+
+        if (err.code === "FST_ERR_CTP_INVALID_MEDIA_TYPE") {
+            return rep.code(415).send({
+                statusCode: 415,
+                error: "Unsupported Media Type",
+                message: "Content-Type must be application/json",
+            });
+        }
 
         req.log.error(err);
         return rep.code(500).send({

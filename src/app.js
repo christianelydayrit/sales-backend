@@ -1,6 +1,6 @@
 import Fastify from "fastify";
 import dbConnection from "./plugins/db.js";
-import salesController from "./modules/sales/sales.route.js";
+import salesRouter from "./modules/sales/sales.route.js";
 import errorHandlerPlugin from "./plugins/error-handler.js"
 import authPlugin from "./plugins/auth.js";
 import { ServiceUnavailableError } from "./errors/app-error.js";
@@ -18,7 +18,7 @@ export function buildApp(opts = {}){
     fastify.register(dbConnection);
     fastify.register(authPlugin);
     fastify.register(authRoutes, {prefix: '/auth'});
-    fastify.register(salesController, {prefix: '/sales'});
+    fastify.register(salesRouter, {prefix: '/sales'});
     
 
     fastify.get('/ready', async (req, rep) => {

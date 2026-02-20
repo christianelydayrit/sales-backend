@@ -8,7 +8,16 @@ export const errorResponseSchema = {
         details: {
             anyOf: 
             [
-              { type: "array", items: { type: "object" } },
+              { 
+                type: "array", 
+                items: { 
+                    type: "object",
+                    properties: {
+                        field: { type: "string" },
+                        message: { type: "string" }
+                    }
+                } 
+              },
               { type: "object" }
             ]
         }
