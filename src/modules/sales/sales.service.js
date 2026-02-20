@@ -29,7 +29,6 @@ export default async function fetchMonthlySales(pg, month, year){
             ORDER BY s.sale_date DESC, s.id DESC;
         `, [start, end]
     );
-
     return rows;
 
 }

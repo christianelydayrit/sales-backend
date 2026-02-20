@@ -1,0 +1,6 @@
+import { authSchema } from './auth.schema.js';
+import loginController from './auth.controller.js';
+
+export default async function authRoutes(fastify){
+    fastify.post('/login', {schema: authSchema}, loginController)
+}

@@ -7,4 +7,6 @@ export default class AppError extends Error{
     }
 }
 
-export const NotFoundError = (msg, details) =>(new AppError(404, msg, 'Not found', details));
+export const TokenUnauthorized = (msg, details) =>(new AppError(401, msg, 'Unauthorized', details));
+export const InvalidCredentials = (msg, details) =>(new AppError(401, msg, 'Invalid credentials', details));
+export const ServiceUnavailableError = (msg, details) =>(new AppError(503, msg, 'Service Unavailable', details));

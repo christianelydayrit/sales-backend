@@ -34,6 +34,14 @@ async function errorHandlerPlugin(fastify){
             })
         }
 
+        if (err.code === "FST_ERR_CTP_INVALID_JSON_BODY") {
+            return rep.code(400).send({
+              statusCode: 400,
+              error: "Bad Request",
+              message: "Invalid JSON body",
+            });
+          }
+
         req.log.error(err);
         return rep.code(500).send({
             statusCode: 500,
