@@ -19,9 +19,15 @@ export function buildApp(opts = {}){
     fastify.get('/ready', async (req, rep) => {
         try {
           await fastify.pg.query('SELECT 1')
-          return { status: 'ready' }
+          return { 
+            status: 'ready' 
+        }
         } catch {
-          return rep.code(503).send({ status: 'not_ready' })
+          return rep.code(503).send({ 
+            statusCode: 503,
+            error: 'Not ready',
+            message: 'Database unavailable',
+        })
         }
       });
 
