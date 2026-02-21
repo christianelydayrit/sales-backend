@@ -1,3 +1,9 @@
+/**
+ * JSON schema describing the API error response format.
+ * Must stay in sync with the global error handler output.
+ */
+
+
 export const errorResponseSchema = {
     type: 'object',
     required: ['message', 'statusCode', 'error'],
