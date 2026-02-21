@@ -19,6 +19,7 @@ export const authSchema = {
             },
             
         },
+        // Reusable error response shapes defined in error.response.js
         ...commonErrors
     }
 }

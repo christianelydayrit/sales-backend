@@ -3,6 +3,7 @@ import fp from "fastify-plugin";
 import { TokenUnauthorized } from "../errors/app-error.js"
 
 async function authPlugin(fastify){
+    // Registers JWT methods (req.jwtVerify / rep.jwtSign)
     fastify.register(jwt, {
         secret: process.env.JWT_SECRET,
         sign: {
@@ -10,11 +11,13 @@ async function authPlugin(fastify){
         }
     });
 
+    // Route guard: verifies token and attaches decoded payload to req.user
     fastify.decorate('authenticate', async (req, rep) =>{
         try{
             await req.jwtVerify();
-        }catch(err){
-            throw TokenUnauthorized(err.message);
+        }catch{
+            // Do not expose verification reason (expired, malformed, etc.)
+            throw TokenUnauthorized('Unauthorized access');
         }
     })
 }
