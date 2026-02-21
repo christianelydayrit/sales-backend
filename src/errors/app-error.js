@@ -1,9 +1,10 @@
 // Base application error propagated to the global error handler.
 export default class AppError extends Error{
-    constructor(statusCode, message, name, details = undefined){
+    constructor(statusCode, message, error, details = undefined){
         super(message);
         this.statusCode = statusCode;
-        this.name = name;
+        this.name = 'AppError';
+        this.error = error;
         this.details = details;
     }
 }

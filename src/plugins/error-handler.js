@@ -23,22 +23,9 @@ async function errorHandlerPlugin(fastify){
         if(err instanceof AppError){
             return rep.code(err.statusCode).send({
                 statusCode: err.statusCode,
-                error: err.name,
+                error: err.error,
                 message: err.message,
                 ...(err.details !== undefined ? {details: err.details} : {})
-            })
-        }
-
-        // Fastify validation errors
-        if(err.code === "FST_ERR_VALIDATION"){
-            return rep.code(400).send({
-                statusCode: 400,
-                error: 'Bad Request',
-                message: "Validation failed",
-                details: err.validation?.map((e) =>({
-                    field: e.instancePath || e.schemaPath,
-                    message: e.message
-                }))
             })
         }
 
@@ -57,6 +44,19 @@ async function errorHandlerPlugin(fastify){
                 error: "Unsupported Media Type",
                 message: "Content-Type must be application/json",
             });
+        }
+
+        // Fastify validation errors
+        if(err.code === "FST_ERR_VALIDATION"){
+            return rep.code(400).send({
+                statusCode: 400,
+                error: 'Bad Request',
+                message: "Validation failed",
+                details: err.validation?.map((e) =>({
+                    field: e.instancePath || e.schemaPath,
+                    message: e.message
+                }))
+            })
         }
 
         // Unknown or unexpected runtime errors 
