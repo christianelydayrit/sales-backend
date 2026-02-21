@@ -68,7 +68,7 @@ JWT_EXPIRES_IN=1h
 
 ### Database Setup (Required Before Running)
 
-T> The application starts without the database, but authentication, protected endpoints, and readiness checks will fail until the schema exists.
+The application starts without the database, but authentication, protected endpoints, and readiness checks will fail until the schema exists.
 
 Create the tables described in the **Database Setup** section below and insert at least one user account (see *Seeded Admin User*).
 
