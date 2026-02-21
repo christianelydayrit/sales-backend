@@ -6,8 +6,11 @@ export const salesMonthlySchema = {
         required: ['month', 'year'],
         additionalProperties: false,
         properties:{
+            // Year range is constrained to the seeded dataset for this exercise.
             'month': {type: 'integer', minimum: 1, maximum: 12},
             'year': {type: 'integer', minimum: 2025, maximum: 2026},
+
+            // Pagination parameters
             'page': {type: 'integer', minimum: 1, default: 1},
             'pageSize': {type: 'integer', minimum: 1, maximum: 200, default: 10 }
         }
@@ -34,6 +37,7 @@ export const salesMonthlySchema = {
                         }
                     }
                 },
+                // Pagination metadata returned with every result set
                 meta:{
                     type: 'object',
                     required: ['page', 'pageSize', 'total', 'totalPages'],

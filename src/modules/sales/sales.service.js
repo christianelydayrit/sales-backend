@@ -1,3 +1,5 @@
+// Computes month boundaries using a half-open range: [start, nextMonthStart).
+// Using an exclusive end date keeps queries index-friendly.
 function monthRange(month, year){ 
         const startDate = `${year}-${ String(month).padStart(2, '0') }-01`;
 
@@ -9,12 +11,17 @@ function monthRange(month, year){
         return { startDate, endDate };
     }
 
+/**
+ * Fetches monthly sales with offset pagination and pagination metadata.
+ */
+
 export default async function fetchMonthlySales(pg, month, year, page, pageSize){
 
     const { startDate, endDate } = monthRange(month, year);
 
     const offset = (page - 1) * pageSize;
 
+    // Count is queried separately to return `total` and `totalPages` in metadata.
     const { rows: rowCount } = await pg.query(
         `SELECT COUNT(*)::int as total
          FROM sales s
@@ -25,6 +32,7 @@ export default async function fetchMonthlySales(pg, month, year, page, pageSize)
 
     const total = rowCount[0]?.total ?? 0;
 
+    // Stable ordering (date + id) prevents duplicate/missing rows between pages.
     const { rows } = await pg.query(
         `SELECT
         s.id,
