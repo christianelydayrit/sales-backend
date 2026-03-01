@@ -5,6 +5,7 @@ import errorHandlerPlugin from "./plugins/error-handler.js"
 import authPlugin from "./plugins/auth.js";
 import { ServiceUnavailableError } from "./errors/app-error.js";
 import authRoutes from "./modules/auth/auth.route.js";
+import userRoute from "./modules/users/users.route.js";
 
 export function buildApp(opts = {}){
 
@@ -29,9 +30,10 @@ export function buildApp(opts = {}){
 
     // Public auth endpoints
     fastify.register(authRoutes, {prefix: '/auth'});
-
+    
     // Protected business routes
     fastify.register(salesRouter, {prefix: '/sales'});
+    fastify.register(userRoute, {prefix: '/user'});
     
     // Readiness probe: verifies the database is reachable.
     fastify.get('/ready', async (req, rep) => {

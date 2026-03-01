@@ -38,19 +38,20 @@ export const salesMonthlySchema = {
                     }
                 },
                 // Pagination metadata returned with every result set
-                meta:{
-                    type: 'object',
-                    required: ['page', 'pageSize', 'total', 'totalPages'],
-                    additionalProperties: false,
-                    properties:{
-                        page: { type: "integer" },
-                        pageSize: { type: "integer" },
-                        total: { type: "integer" },
-                        totalPages: { type: "integer" }
-                    }
-                }
+                // meta:{
+                //     type: 'object',
+                //     required: ['page', 'pageSize', 'total', 'totalPages'],
+                //     additionalProperties: false,
+                //     properties:{
+                //         page: { type: "integer" },
+                //         pageSize: { type: "integer" },
+                //         total: { type: "integer" },
+                //         totalPages: { type: "integer" }
+                //     }
+                // }
             }
         },
+        // Reusable error response shapes defined in error.response.js
         ...commonErrors
     }
 }
