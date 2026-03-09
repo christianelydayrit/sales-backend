@@ -1,4 +1,4 @@
-# Sales REST API — Coding Assessment
+# Sales REST API 
 
 ## Overview
 
